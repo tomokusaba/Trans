@@ -1,0 +1,6 @@
+{
+  "Speech": {
+    "Region": "westus2",
+    "ResourceId": "<your-speech-resource-id>"
+  }
+}
