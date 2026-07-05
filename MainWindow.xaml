@@ -3,20 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="English → Japanese Speech Translator 🌐"
         Height="700" Width="900"
+        WindowState="Maximized"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing">
 
     <Window.Resources>
         <Style x:Key="ActionButton" TargetType="Button">
-            <Setter Property="Padding" Value="20,10"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="28,16"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="Margin" Value="0,0,16,0"/>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="16">
+    <Grid Margin="32">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -28,11 +30,11 @@
         <!-- Row 0: Title -->
         <TextBlock Grid.Row="0"
                    Text="🎤 English → Japanese Speech Translator"
-                   FontSize="22" FontWeight="Bold"
-                   Margin="0,0,0,12"/>
+                   FontSize="34" FontWeight="Bold"
+                   Margin="0,0,0,20"/>
 
         <!-- Row 1: Configuration -->
-        <GroupBox Grid.Row="1" Header="⚙ 設定" Margin="0,0,0,8" Padding="8">
+        <Expander Grid.Row="1" Header="⚙ 設定" Margin="0,0,0,16" Padding="16" FontSize="22" IsExpanded="False">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -44,20 +46,20 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="リージョン:" 
-                           VerticalAlignment="Center" Margin="0,0,8,4" FontWeight="SemiBold"/>
+                           VerticalAlignment="Center" Margin="0,0,12,8" FontWeight="SemiBold"/>
                 <TextBox x:Name="RegionTextBox" Grid.Row="0" Grid.Column="1"
-                         Margin="0,0,0,4" Padding="4"/>
+                         Margin="0,0,0,8" Padding="8" FontSize="20"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="リソースID:" 
-                           VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+                           VerticalAlignment="Center" Margin="0,0,12,0" FontWeight="SemiBold"/>
                 <TextBox x:Name="ResourceIdTextBox" Grid.Row="1" Grid.Column="1"
-                         Padding="4"/>
+                         Padding="8" FontSize="20"/>
             </Grid>
-        </GroupBox>
+        </Expander>
 
         <!-- Row 2: Buttons + Status -->
-        <StackPanel Grid.Row="2" Margin="0,0,0,8">
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+        <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                 <Button x:Name="StartButton" Content="▶ 翻訳開始"
                         Style="{StaticResource ActionButton}"
                         Background="#4CAF50" Foreground="White"
@@ -73,28 +75,28 @@
                         Click="ClearButton_Click"/>
             </StackPanel>
             <TextBlock x:Name="StatusText" Text="🟡 準備完了 — Speech Service リソースIDを設定してから翻訳を開始してください"
-                       FontSize="13" Foreground="Gray"/>
+                       FontSize="22" Foreground="Gray"/>
         </StackPanel>
 
         <!-- Row 3: Real-time recognition -->
-        <GroupBox Grid.Row="3" Header="🔴 リアルタイム認識中" Margin="0,0,0,8" Padding="8">
+        <GroupBox Grid.Row="3" Header="🔴 リアルタイム認識中" Margin="0,0,0,16" Padding="16" FontSize="24">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="24"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="🇺🇸 English (認識中)" FontWeight="Bold" Margin="0,0,0,4" Foreground="#1565C0"/>
+                    <TextBlock Text="🇺🇸 English (認識中)" FontWeight="Bold" FontSize="24" Margin="0,0,0,8" Foreground="#1565C0"/>
                     <TextBlock x:Name="CurrentRecognitionText" TextWrapping="Wrap"
-                               MinHeight="36" FontSize="14" Foreground="#1565C0"/>
+                               MinHeight="72" FontSize="48" FontWeight="SemiBold" Foreground="#1565C0"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2">
-                    <TextBlock Text="🇯🇵 日本語 (翻訳中)" FontWeight="Bold" Margin="0,0,0,4" Foreground="#C62828"/>
+                    <TextBlock Text="🇯🇵 日本語 (翻訳中)" FontWeight="Bold" FontSize="24" Margin="0,0,0,8" Foreground="#C62828"/>
                     <TextBlock x:Name="CurrentTranslationText" TextWrapping="Wrap"
-                               MinHeight="36" FontSize="14" Foreground="#C62828"/>
+                               MinHeight="72" FontSize="48" FontWeight="SemiBold" Foreground="#C62828"/>
                 </StackPanel>
             </Grid>
         </GroupBox>
@@ -103,22 +105,22 @@
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="16"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <GroupBox Grid.Column="0" Header="📝 認識結果 (English)">
+            <GroupBox Grid.Column="0" Header="📝 認識結果 (English)" FontSize="22">
                 <TextBox x:Name="RecognizedTextBox"
                          IsReadOnly="True" TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
-                         FontSize="14" BorderThickness="0"/>
+                         FontSize="28" BorderThickness="0"/>
             </GroupBox>
 
-            <GroupBox Grid.Column="2" Header="📝 翻訳結果 (日本語)">
+            <GroupBox Grid.Column="2" Header="📝 翻訳結果 (日本語)" FontSize="22">
                 <TextBox x:Name="TranslatedTextBox"
                          IsReadOnly="True" TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
-                         FontSize="14" BorderThickness="0"/>
+                         FontSize="28" BorderThickness="0"/>
             </GroupBox>
         </Grid>
     </Grid>
